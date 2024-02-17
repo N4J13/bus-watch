@@ -1,4 +1,3 @@
-
 import 'package:bus_proj/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -18,7 +17,7 @@ class SlideWidget extends StatelessWidget {
         color: Colors.white,
       ),
       onSubmit: () {
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => const HomeScreen(),
