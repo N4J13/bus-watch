@@ -1,6 +1,7 @@
-import 'package:bus_proj/widgets/ui/app_text_field.dart';
-import 'package:bus_proj/widgets/ui/button.dart';
+import 'package:bus_proj/bloc/bus_bloc.dart';
+import 'ui/ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -9,12 +10,9 @@ class RouteSearchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController originController = TextEditingController();
-    TextEditingController destinationController = TextEditingController();
-    final formField = GlobalKey<FormState>();
-
+    final BusBloc busBloc = BlocProvider.of<BusBloc>(context);
     return Form(
-      key: formField,
+      key: busBloc.formKey,
       child: Column(
         children: [
           Container(
@@ -48,7 +46,7 @@ class RouteSearchWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   AppTextField(
-                    controller: originController,
+                    controller: busBloc.originController,
                     hintText: 'Search Origin',
                     prefixIcon: PhosphorIcon(
                       PhosphorIcons.magnifyingGlass(),
@@ -68,7 +66,7 @@ class RouteSearchWidget extends StatelessWidget {
                   ),
                   // const SizedBox(height: 20),
                   AppTextField(
-                    controller: destinationController,
+                    controller: busBloc.destinationController,
                     hintText: 'Search Destination',
                     prefixIcon: PhosphorIcon(
                       PhosphorIcons.magnifyingGlass(),
@@ -86,7 +84,7 @@ class RouteSearchWidget extends StatelessWidget {
                   Button(
                     text: 'Search',
                     onPressed: () {
-                    
+                      busBloc.getRoutes();
                     },
                     icon: PhosphorIcon(
                       PhosphorIcons.magnifyingGlass(),
