@@ -17,6 +17,7 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autovalidateMode: AutovalidateMode.disabled,
       controller: controller,
       decoration: InputDecoration(
         hintText: hintText,
@@ -29,6 +30,9 @@ class AppTextField extends StatelessWidget {
         ),
         prefixIcon: prefixIcon,
         enabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide.none,
+        ),
+        errorBorder: const UnderlineInputBorder(
           borderSide: BorderSide.none,
         ),
       ),

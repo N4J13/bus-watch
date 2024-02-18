@@ -16,14 +16,14 @@ class SlideWidget extends StatelessWidget {
         PhosphorIcons.bus(),
         color: Colors.white,
       ),
-      onSubmit: () {
+      onSubmit: () async{
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => const HomeScreen(),
           ),
         );
-      },
+      }
     );
   }
 }

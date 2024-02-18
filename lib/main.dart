@@ -1,4 +1,3 @@
-import 'package:bus_proj/screens/home.dart';
 import 'package:bus_proj/screens/on_boarding.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +12,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      supportedLocales: const[
+          Locale('en'),
+      ],
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: const Color.fromARGB(255, 235, 236, 239),
