@@ -1,6 +1,6 @@
-import 'package:bus_proj/models/get_vehicle_model.dart';
+import 'package:bus_proj/models/model.dart';
 import 'package:dio/dio.dart';
-import 'package:bus_proj/models/get_route_model.dart';
+
 
 class BusRepository {
   final client = Dio();
