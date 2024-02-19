@@ -1,20 +1,35 @@
+import 'package:bus_proj/models/get_vehicle_model.dart';
 import 'package:dio/dio.dart';
+import 'package:bus_proj/models/get_route_model.dart';
 
 class BusRepository {
   final client = Dio();
 
-  Future<List> getRoutes({required String origin, required String destination}) async {
-    final response = await client.get('https://api.com/routes' , queryParameters: {
+  Future<List<RouteData>> getRoutes(
+      {required String origin, required String destination}) async {
+    List<RouteData> routeData = [];
+
+    final response =
+        await client.get('https://api.com/routes', queryParameters: {
       'origin': origin,
       'destination': destination,
     }); // Same as https://api.com/routes?origin=origin&destination=destination
-    return response.data;
+    (response.data as List).forEach((element) {
+      routeData.add(RouteData.fromJson(element));
+    });
+    return routeData;
   }
 
-  Future<List> getRoutesfromVehicle({required String vechicle}) async {
-    final response = await client.get('https://api.com/routes' , queryParameters: {
+  Future<List<VehiclesData>> getRoutesfromVehicle(
+      {required String vechicle}) async {
+    List<VehiclesData> vehicleData = [];
+    final response =
+        await client.get('https://api.com/routes', queryParameters: {
       'vechicle': vechicle,
     }); // Same as https://api.com/routes?vechicle=vechicle
-    return response.data;
+    (response.data as List).forEach((element) {
+      vehicleData.add(VehiclesData.fromJson(element));
+    });
+    return vehicleData;
   }
 }

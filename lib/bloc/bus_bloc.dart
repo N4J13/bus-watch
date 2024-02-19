@@ -1,4 +1,6 @@
 import 'package:bus_proj/bloc/bus_state.dart';
+import 'package:bus_proj/models/get_route_model.dart';
+import 'package:bus_proj/models/get_vehicle_model.dart';
 import 'package:bus_proj/repositories/bus_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,8 +13,8 @@ class BusBloc extends Cubit<BusState> {
   TextEditingController destinationController = TextEditingController();
   TextEditingController vehicleController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-  List routesData = [];
-  List vehiclesData = [];
+  List<RouteData> routesData = [];
+  List <VehiclesData>vehiclesData = [];
 
 
   Future<void> getRoutes() async {
