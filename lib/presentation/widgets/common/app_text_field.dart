@@ -23,9 +23,12 @@ class AppTextField extends StatelessWidget {
         hintText: hintText,
         hintStyle: const TextStyle(
           color: Colors.grey,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w400,
         ),
         focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide.none,
+        ),
+        focusedErrorBorder: const UnderlineInputBorder(
           borderSide: BorderSide.none,
         ),
         prefixIcon: prefixIcon,

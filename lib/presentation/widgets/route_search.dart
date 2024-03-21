@@ -1,5 +1,5 @@
 import 'package:bus_proj/bloc/bus_bloc.dart';
-import 'ui/ui.dart';
+import 'common/common.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -10,14 +10,14 @@ class RouteSearchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final BusBloc busBloc = BlocProvider.of<BusBloc>(context);
+    final BusBloc busBloc = context.read<BusBloc>();
+    final double screenWidth = MediaQuery.of(context).size.width;
     return Form(
       key: busBloc.formKey,
       child: Column(
         children: [
           Container(
-            height: 350,
-            width: 500,
+            width: screenWidth,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(20),
@@ -27,21 +27,11 @@ class RouteSearchWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    width: 150,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 235, 236, 239),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        'Find Routes',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
+                  const Text(
+                    'Find Routes',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -49,7 +39,7 @@ class RouteSearchWidget extends StatelessWidget {
                     controller: busBloc.originController,
                     hintText: 'Search Origin',
                     prefixIcon: PhosphorIcon(
-                      PhosphorIcons.magnifyingGlass(),
+                      PhosphorIcons.navigationArrow(),
                     ),
                     validator: FormBuilderValidators.compose(
                       [
@@ -62,14 +52,14 @@ class RouteSearchWidget extends StatelessWidget {
 
                   const Padding(
                     padding: EdgeInsets.only(left: 10, right: 10),
-                    child: Divider(color: Colors.black),
+                    child: Divider(),
                   ),
                   // const SizedBox(height: 20),
                   AppTextField(
                     controller: busBloc.destinationController,
                     hintText: 'Search Destination',
                     prefixIcon: PhosphorIcon(
-                      PhosphorIcons.magnifyingGlass(),
+                      PhosphorIcons.mapPinLine(),
                     ),
                     validator: FormBuilderValidators.compose(
                       [

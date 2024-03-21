@@ -1,4 +1,4 @@
-import 'package:bus_proj/widgets/ui/slide.dart';
+import 'package:bus_proj/presentation/widgets/slide_button.dart';
 import 'package:flutter/material.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -11,10 +11,11 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
+    
     return const Scaffold(
       body: SafeArea(
         child: Center(
-          child: SlideWidget(),
+          child: SlideButtonWidget(),
         ),
       ),
     );

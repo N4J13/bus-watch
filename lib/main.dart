@@ -1,9 +1,14 @@
-import 'package:bus_proj/screens/on_boarding.dart';
+import 'package:bus_proj/bloc/bus_bloc.dart';
+import 'package:bus_proj/presentation/screens/on_boarding_screen.dart';
+import 'package:bus_proj/utils/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(BlocProvider(
+    create: (context) => BusBloc(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -12,15 +17,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      supportedLocales: const[
-          Locale('en'),
+      supportedLocales: const [
+        Locale('en'),
       ],
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: const Color.fromARGB(255, 235, 236, 239),
-        textTheme: GoogleFonts.urbanistTextTheme(),
-      ),
-      home: const OnBoardingScreen(),
+      theme: appTheme,
+      home:
+          const OnBoardingScreen(), // Change this to HomeScreen() if user is already onboarded
     );
   }
 }

@@ -15,14 +15,16 @@ class BusBloc extends Cubit<BusState> {
   TextEditingController vehicleController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   List<RouteData> routesData = [];
-  List <VehiclesData>vehiclesData = [];
+  List<VehiclesData> vehiclesData = [];
 
-
+  // TODO : Add nulable parameter origin and destination to getRoutes function and if its not null you should pass that value to the getRoutes function from the BusRepository
   Future<void> getRoutes() async {
-    if(formKey.currentState!.validate()) return;
+    if (formKey.currentState!.validate()) return;
     emit(const BusLoading());
     try {
-      final routes = await _busRepository.getRoutes( origin: originController.text, destination: destinationController.text);
+      final routes = await _busRepository.getRoutes(
+          origin: originController.text,
+          destination: destinationController.text);
       routesData = routes;
       emit(const BusLoaded());
     } catch (e) {
@@ -33,7 +35,8 @@ class BusBloc extends Cubit<BusState> {
   Future<void> getRoutesfromVehicle() async {
     emit(const BusLoading());
     try {
-      final vehicles = await _busRepository.getRoutesfromVehicle(vechicle: vehicleController.text);
+      final vehicles = await _busRepository.getRoutesfromVehicle(
+          vechicle: vehicleController.text);
       vehiclesData = vehicles;
       emit(const BusLoaded());
     } catch (e) {

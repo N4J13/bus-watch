@@ -1,5 +1,5 @@
 
-import 'package:bus_proj/constants/color.dart';
+import 'package:bus_proj/constants/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -66,7 +66,7 @@ class Button extends StatelessWidget {
           gradient: variant == ButtonVariant.primary
               ? LinearGradient(
                   colors: [
-                    MyColors.primary,
+                    AppColors.primary,
                     const Color.fromARGB(255, 153, 127, 255)
                   ],
                   begin: Alignment.topCenter,
@@ -101,7 +101,7 @@ class Button extends StatelessWidget {
                         ),
                       ]
                     : null,
-                fontSize: 14,
+                fontSize: 15,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 1.5,
               ),
