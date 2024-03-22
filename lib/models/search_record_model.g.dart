@@ -6,17 +6,17 @@ part of 'search_record_model.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class HiveModelAdapter extends TypeAdapter<HiveModel> {
+class SearchRecordModelAdapter extends TypeAdapter<SearchRecordModel> {
   @override
   final int typeId = 0;
 
   @override
-  HiveModel read(BinaryReader reader) {
+  SearchRecordModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return HiveModel(
+    return SearchRecordModel(
       id: fields[0] as int?,
       origin: fields[1] as String?,
       destination: fields[2] as String?,
@@ -24,7 +24,7 @@ class HiveModelAdapter extends TypeAdapter<HiveModel> {
   }
 
   @override
-  void write(BinaryWriter writer, HiveModel obj) {
+  void write(BinaryWriter writer, SearchRecordModel obj) {
     writer
       ..writeByte(3)
       ..writeByte(0)
@@ -41,7 +41,7 @@ class HiveModelAdapter extends TypeAdapter<HiveModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is HiveModelAdapter &&
+      other is SearchRecordModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
