@@ -44,6 +44,7 @@ dependencies:
   hive_generator: ^2.0.1
   json_annotation: ^4.8.1
   lottie: ^2.5.0
+  path_provider: ^2.1.2
   phosphor_flutter: ^2.0.1
   shared_preferences: ^2.2.2
   slide_to_act: ^2.0.2

@@ -1,8 +1,3 @@
-//  TODO : Create a hive model with
-//  the following fields:
-//  - id (int)
-//  - Origin (String)
-//  - Destination (String)
 import 'package:hive_flutter/adapters.dart';
 part 'search_record_model.g.dart';
 
