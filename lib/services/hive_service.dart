@@ -1,23 +1,41 @@
+import 'dart:io';
 
+import 'package:bus_proj/models/model.dart';
+import 'package:bus_proj/models/search_record_model.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:path_provider/path_provider.dart';
 
 class HiveService {
-  // Create a Box with the name 'searchRecordBox' ✅
+
   static const String searchRecordBox = 'searchRecordBox';
 
-  // Create a function to initialize the box
- 
   Future<void> init() async {
-
+    Directory directory = await getApplicationDocumentsDirectory();
+    Hive.init(directory.path);
+    Hive.registerAdapter(SearchRecordModelAdapter());
   }
 
-  // Create a function for open the box and return it
+  Future<Box> openBox() async {
+    return await Hive.openBox(searchRecordBox);
+  }
 
+  Future addSearchRecord(SearchRecordModel searchRecordModel) async {
+    final box = await openBox();
+    box.add(searchRecordModel);
+  }
 
-  // Create a function to add a record to the box
+  Future getSearchRecords() async {
+    final box = await openBox();
+    return box.values.toList();
+  }
 
-  // Create a function to get all records from the box and return them
+  Future deleteSearchRecord(SearchRecordModel searchRecordModel) async {
+    final box = await openBox();
+    box.delete(searchRecordModel);
+  }
 
-  // Create a function to delete a record from the box
-
-  // Create a function to delete all records from the box
+  Future<void> deleteAllSearchRecord() async {
+    final box = await openBox();
+    await box.clear();
+  }
 }
