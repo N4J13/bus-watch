@@ -1,4 +1,5 @@
 import 'package:bus_proj/presentation/screens/home_screen.dart';
+import 'package:bus_proj/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:slide_to_act/slide_to_act.dart';
@@ -8,6 +9,7 @@ class SlideButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    StorageService sharedPrefs = StorageService();
     return SlideAction(
         elevation: 0,
         outerColor: Theme.of(context).colorScheme.onPrimary,
@@ -17,7 +19,7 @@ class SlideButtonWidget extends StatelessWidget {
           color: Theme.of(context).colorScheme.onPrimary,
         ),
         onSubmit: () async {
-          // TODO :  Store the onboarding status in shared preferences as true
+          sharedPrefs.saveBool('isOnBoard', true);
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
