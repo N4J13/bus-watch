@@ -9,11 +9,12 @@ class LoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: isLoading
-          ? Lottie.asset('assets/animations/Animation - 1711468008001.json',
-              width: 150)
-          : child,
-    );
+    return isLoading
+        ? Center(
+            child: Lottie.asset(
+                'assets/animations/Animation - 1711468008001.json',
+                width: 150),
+          )
+        : child;
   }
 }
