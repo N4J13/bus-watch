@@ -1,35 +1,32 @@
+import 'package:bus_proj/constants/constants.dart';
 import 'package:bus_proj/models/model.dart';
 import 'package:dio/dio.dart';
-
 
 class BusRepository {
   final client = Dio();
 
   Future<List<RouteData>> getRoutes(
-      {required String origin, required String destination}) async {
+      {required String departure, required String destination}) async {
     List<RouteData> routeData = [];
-
-    final response =
-        await client.get('https://api.com/routes', queryParameters: {
-      'origin': origin,
+    final response = await client.get(baseUrl, queryParameters: {
+      'departure': departure,
       'destination': destination,
-    }); // Same as https://api.com/routes?origin=origin&destination=destination
-    (response.data as List).forEach((element) {
-      routeData.add(RouteData.fromJson(element));
     });
+    for (var element in (response.data as List)) {
+      routeData.add(RouteData.fromJson(element));
+    }
     return routeData;
   }
 
   Future<List<VehiclesData>> getRoutesfromVehicle(
       {required String vechicle}) async {
     List<VehiclesData> vehicleData = [];
-    final response =
-        await client.get('https://api.com/routes', queryParameters: {
+    final response = await client.get(baseUrl, queryParameters: {
       'vechicle': vechicle,
     }); // Same as https://api.com/routes?vechicle=vechicle
-    (response.data as List).forEach((element) {
+    for (var element in (response.data as List)) {
       vehicleData.add(VehiclesData.fromJson(element));
-    });
+    }
     return vehicleData;
   }
 }

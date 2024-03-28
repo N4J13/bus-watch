@@ -1,19 +1,22 @@
 import 'package:bus_proj/bloc/bus_bloc.dart';
+import 'package:bus_proj/constants/constants.dart';
+import 'package:bus_proj/presentation/screens/routes_screen.dart';
+import 'package:bus_proj/presentation/widgets/common/app_custom_route.dart';
+import 'package:bus_proj/presentation/widgets/common/app_search_field.dart';
 import 'common/common.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class RouteSearchWidget extends StatelessWidget {
-  const RouteSearchWidget({super.key});
+  final BusBloc bloc;
+  const RouteSearchWidget({super.key, required this.bloc});
 
   @override
   Widget build(BuildContext context) {
-    final BusBloc busBloc = context.read<BusBloc>();
     final double screenWidth = MediaQuery.of(context).size.width;
     return Form(
-      key: busBloc.formKey,
+      key: bloc.formKey,
       child: Column(
         children: [
           Container(
@@ -35,46 +38,66 @@ class RouteSearchWidget extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  AppTextField(
-                    controller: busBloc.originController,
-                    hintText: 'Search Origin',
+                  AppSearchField(
+                    bloc: bloc,
                     prefixIcon: PhosphorIcon(
-                      PhosphorIcons.navigationArrow(),
+                      duotoneSecondaryColor:
+                          Theme.of(context).colorScheme.primary,
+                      PhosphorIconsDuotone.navigationArrow,
                     ),
+                    controller: bloc.departureController,
+                    hintText: "Search Departure",
                     validator: FormBuilderValidators.compose(
                       [
                         FormBuilderValidators.required(
-                          errorText: 'Origin is required',
+                          errorText: 'Departure is required',
                         ),
+                        (value) {
+                          if (stations.contains(value)) {
+                            return null;
+                          }
+                          return "Station not found";
+                        },
                       ],
                     ),
                   ),
-
                   const Padding(
                     padding: EdgeInsets.only(left: 10, right: 10),
                     child: Divider(),
                   ),
-                  // const SizedBox(height: 20),
-                  AppTextField(
-                    controller: busBloc.destinationController,
-                    hintText: 'Search Destination',
+                  AppSearchField(
+                    bloc: bloc,
+                    controller: bloc.destinationController,
                     prefixIcon: PhosphorIcon(
-                      PhosphorIcons.mapPinLine(),
+                      duotoneSecondaryColor:
+                          Theme.of(context).colorScheme.primary,
+                      PhosphorIconsDuotone.mapPinLine,
                     ),
+                    hintText: "Search Destination",
                     validator: FormBuilderValidators.compose(
                       [
                         FormBuilderValidators.required(
                           errorText: 'Destination is required',
                         ),
+                        (value) {
+                          if (stations.contains(value)) {
+                            return null;
+                          }
+                          return "Station not found";
+                        },
                       ],
                     ),
                   ),
-
                   const SizedBox(height: 20),
                   Button(
                     text: 'Search',
                     onPressed: () {
-                      busBloc.getRoutes();
+                      if (!bloc.formKey.currentState!.validate()) return;
+                      bloc.getRoutes();
+                      Navigator.push(
+                        context,
+                        AppCustomRoute(screen: const RoutesScreen()),
+                      );
                     },
                     icon: PhosphorIcon(
                       PhosphorIcons.magnifyingGlass(),

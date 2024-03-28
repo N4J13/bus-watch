@@ -1,4 +1,5 @@
 import 'package:bus_proj/constants/app_color.dart';
+import 'package:bus_proj/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -10,12 +11,95 @@ final ThemeData appTheme = ThemeData(
     onPrimary: Colors.white,
     background: Colors.white,
     onBackground: Colors.black,
+    outline: Colors.black12,
   ),
-  snackBarTheme:  SnackBarThemeData(
+
+  primaryTextTheme: TextTheme(
+    titleLarge: TextStyle(
+      color: Colors.black,
+      fontFamily: GoogleFonts.dmSans().fontFamily,
+      fontSize: 24,
+      fontWeight: FontWeight.w700,
+    ),
+    titleMedium: TextStyle(
+      color: Colors.black,
+      fontFamily: GoogleFonts.dmSans().fontFamily,
+      fontSize: 20,
+      fontWeight: FontWeight.w700,
+    ),
+    titleSmall: TextStyle(
+      color: Colors.black,
+      fontFamily: GoogleFonts.dmSans().fontFamily,
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+    ),
+    bodyMedium: TextStyle(
+      color: Colors.black87,
+      fontFamily: GoogleFonts.dmSans().fontFamily,
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+    ),
+  ),
+  timePickerTheme: TimePickerThemeData(
+    backgroundColor: Colors.white,
+    hourMinuteColor: MaterialStateColor.resolveWith((states) {
+      if (states.contains(MaterialState.selected)) {
+        return AppColors.primary;
+      }
+      return Colors.white;
+    }),
+    hourMinuteTextColor: MaterialStateColor.resolveWith((states) {
+      if (states.contains(MaterialState.selected)) {
+        return Colors.white;
+      }
+      return AppColors.primary;
+    }),
+    dayPeriodTextStyle: MaterialStateTextStyle.resolveWith((states) {
+      if (states.contains(MaterialState.selected)) {
+        return const TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+        );
+      }
+      return TextStyle(
+        color: AppColors.primary,
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+      );
+    }),
+    dayPeriodColor: MaterialStateColor.resolveWith((states) {
+      if (states.contains(MaterialState.selected)) {
+        return AppColors.primary;
+      }
+      return Colors.white;
+    }),
+    hourMinuteShape: RoundedRectangleBorder(
+      borderRadius: const BorderRadius.all(Radius.circular(8)),
+      side: BorderSide(color: AppColors.primary, width: 1),
+    ),
+    dayPeriodTextColor: MaterialStateColor.resolveWith((states) {
+      if (states.contains(MaterialState.selected)) {
+        return Colors.white;
+      }
+      return AppColors.primary;
+    }),
+    dialHandColor: AppColors.primary,
+    entryModeIconColor: AppColors.primary,
+    dayPeriodBorderSide: const BorderSide(color: Colors.black12),
+    dayPeriodShape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20),
+    ),
+  ),
+  iconButtonTheme: IconButtonThemeData(
+      style: ButtonStyle(
+    fixedSize: MaterialStateProperty.all(const Size(50, 50)),
+    backgroundColor: MaterialStateProperty.all(Colors.white),
+  )),
+  snackBarTheme: SnackBarThemeData(
     showCloseIcon: true,
     backgroundColor: Colors.white,
     behavior: SnackBarBehavior.floating,
-   
     contentTextStyle: TextStyle(
       color: Colors.black,
       fontFamily: GoogleFonts.dmSans().fontFamily,
@@ -24,6 +108,13 @@ final ThemeData appTheme = ThemeData(
     ),
     insetPadding: const EdgeInsets.all(10),
     closeIconColor: Colors.black38,
+  ),
+  cardTheme: CardTheme(
+    surfaceTintColor: Colors.white,
+    elevation: 0,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20),
+    ),
   ),
   appBarTheme: const AppBarTheme(
     elevation: 0,
