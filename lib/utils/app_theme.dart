@@ -10,6 +10,7 @@ final ThemeData appTheme = ThemeData(
     primary: AppColors.primary,
     onPrimary: Colors.white,
     background: Colors.white,
+    surface: const Color.fromARGB(255, 246, 247, 251),
     onBackground: Colors.black,
     outline: Colors.black12,
   ),

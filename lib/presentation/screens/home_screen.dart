@@ -12,51 +12,54 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final BusBloc busBloc = context.read<BusBloc>();
-    SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(
-        statusBarColor: Theme.of(context).colorScheme.onPrimary,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-    );
-    return Scaffold(
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: <Widget>[
-            SliverAppBar(
-              backgroundColor: Colors.transparent,
-              title: const Text('My SliverAppBar'),
-              floating: true,
-              expandedHeight: 50,
-              actions: [
-                IconButton(
-                  icon: const PhosphorIcon(
-                    PhosphorIconsDuotone.info,
-                    size: 24,
-                  ),
-                  onPressed: () {
-                    showModalBottomSheet(context: context, builder: (context) => const InfoWidget());
-                  },
-                ),
-                const SizedBox(width: 10),
-              ],
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
-              sliver: SliverList(
-                delegate: SliverChildListDelegate(
-                  [
-                    RouteSearchWidget(
-                      bloc: busBloc,
+
+    return SafeArea(
+      child: AnnotatedRegion(
+        value: SystemUiOverlayStyle(
+          statusBarColor: Theme.of(context).colorScheme.surface,
+          statusBarIconBrightness: Brightness.dark,
+        ),
+        child: Scaffold(
+          body: CustomScrollView(
+            slivers: <Widget>[
+              SliverAppBar(
+                backgroundColor: Colors.transparent,
+                title: const Text('My SliverAppBar'),
+                floating: true,
+                expandedHeight: 50,
+                actions: [
+                  IconButton(
+                    icon: const PhosphorIcon(
+                      PhosphorIconsDuotone.info,
+                      size: 24,
                     ),
-                    const SizedBox(height: 20),
-                    const BusSearchWidget(),
-                    const SizedBox(height: 20),
-                    const RecentSearchWidget(),
-                  ],
+                    onPressed: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context) => const InfoWidget());
+                    },
+                  ),
+                  const SizedBox(width: 10),
+                ],
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+                sliver: SliverList(
+                  delegate: SliverChildListDelegate(
+                    [
+                      RouteSearchWidget(
+                        bloc: busBloc,
+                      ),
+                      const SizedBox(height: 20),
+                      const BusSearchWidget(),
+                      const SizedBox(height: 20),
+                      const RecentSearchWidget(),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
