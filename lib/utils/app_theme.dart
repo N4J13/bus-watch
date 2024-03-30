@@ -9,6 +9,7 @@ final ThemeData appTheme = ThemeData(
   colorScheme: ColorScheme.fromSwatch().copyWith(
     primary: AppColors.primary,
     onPrimary: Colors.white,
+    tertiary: AppColors.tertiary,
     background: Colors.white,
     surface: const Color.fromARGB(255, 246, 247, 251),
     onBackground: Colors.black,
@@ -112,6 +113,7 @@ final ThemeData appTheme = ThemeData(
   ),
   cardTheme: CardTheme(
     surfaceTintColor: Colors.white,
+    color: Colors.white,
     elevation: 0,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(20),

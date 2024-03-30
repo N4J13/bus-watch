@@ -93,11 +93,11 @@ class RouteSearchWidget extends StatelessWidget {
                     text: 'Search',
                     onPressed: () {
                       if (!bloc.formKey.currentState!.validate()) return;
-                      bloc.getRoutes();
                       Navigator.push(
                         context,
                         AppCustomRoute(screen: const RoutesScreen()),
                       );
+                      bloc.getRoutes();
                     },
                     icon: PhosphorIcon(
                       PhosphorIcons.magnifyingGlass(),

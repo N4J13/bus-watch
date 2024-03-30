@@ -5,13 +5,22 @@ import 'package:dio/dio.dart';
 class BusRepository {
   final client = Dio();
 
-  Future<List<RouteData>> getRoutes(
-      {required String departure, required String destination}) async {
+  Future<List<RouteData>> getRoutes({
+    required String departure,
+    required String destination,
+    required bool restrict,
+    String? time,
+  }) async {
     List<RouteData> routeData = [];
-    final response = await client.get(baseUrl, queryParameters: {
+    Map<String, dynamic> queryParams = {
       'departure': departure,
       'destination': destination,
-    });
+      'restrict': restrict,
+    };
+    if (time != null && time.isNotEmpty) {
+      queryParams['time'] = time;
+    }
+    final response = await client.get(baseUrl, queryParameters: queryParams);
     for (var element in (response.data as List)) {
       routeData.add(RouteData.fromJson(element));
     }

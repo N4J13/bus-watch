@@ -8,21 +8,25 @@ String routeDataToJson(List<RouteData> data) =>
 
 class RouteData {
   int trip;
+  String vehicleNumber;
   List<StationElement> stations;
 
   RouteData({
     required this.trip,
+    required this.vehicleNumber,
     required this.stations,
   });
 
   factory RouteData.fromJson(Map<String, dynamic> json) => RouteData(
         trip: json["trip"],
+        vehicleNumber: json["vehicle_number"],
         stations: List<StationElement>.from(
             json["stations"].map((x) => StationElement.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "trip": trip,
+        "vehicle_number": vehicleNumber,
         "stations": List<dynamic>.from(stations.map((x) => x.toJson())),
       };
 }
