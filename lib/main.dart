@@ -11,7 +11,6 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   StorageService sharedPrefs = StorageService();
   bool isOnBoard = await sharedPrefs.getBool('isOnBoard');
-
   FlutterNativeSplash.remove();
   runApp(BlocProvider(
     create: (context) => BusBloc(),

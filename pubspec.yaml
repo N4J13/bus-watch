@@ -28,11 +28,9 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  bloc: ^8.1.3
   build_runner: ^2.4.8
   cupertino_icons: ^1.0.2
   dio: ^5.4.0
-  dropdown_search: ^5.0.6
   equatable: ^2.0.5
   flutter:
     sdk: flutter
@@ -43,9 +41,9 @@ dependencies:
   hive_flutter: ^1.1.0
   hive_generator: ^2.0.1
   json_annotation: ^4.8.1
-  lottie: ^2.5.0
   path_provider: ^2.1.2
   phosphor_flutter: ^2.0.1
+  searchfield: ^1.0.1
   shared_preferences: ^2.2.2
   slide_to_act: ^2.0.2
 
@@ -67,6 +65,7 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/images/
     - assets/animations/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
