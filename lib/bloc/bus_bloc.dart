@@ -25,7 +25,7 @@ class BusBloc extends Cubit<BusState> {
       final routes = await _busRepository.getRoutes(
         departure: departureController.text.slugify(),
         destination: destinationController.text.slugify(),
-        restrict: restrict,
+        restrict: !restrict,
         time: formatTimeOfDay(time),
       );
       routesData = routes;
@@ -36,7 +36,7 @@ class BusBloc extends Cubit<BusState> {
         emit(const BusLoaded());
       }
     } catch (e) {
-      emit(BusError(e.toString()));
+      emit(const BusError("Something Went Wrong!"));
     }
   }
 
@@ -52,8 +52,19 @@ class BusBloc extends Cubit<BusState> {
     }
   }
 
+  void swapStations() {
+    final temp = departureController.text;
+    departureController.text = destinationController.text;
+    destinationController.text = temp;
+  }
+
   void getTime(final selectedTime) {
     time = selectedTime;
     emit(BusTimeSelected(formatTimeOfDay(time)));
+  }
+
+  void toggleRestrict(bool value) {
+    restrict = value;
+    emit(BusRestrictSelected(restrict));
   }
 }

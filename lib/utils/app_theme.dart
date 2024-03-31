@@ -1,6 +1,7 @@
 import 'package:bus_proj/constants/app_color.dart';
 import 'package:bus_proj/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final ThemeData appTheme = ThemeData(
@@ -122,6 +123,25 @@ final ThemeData appTheme = ThemeData(
   appBarTheme: const AppBarTheme(
     elevation: 0,
     color: Colors.white,
+  ),
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: ButtonStyle(
+      shape: MaterialStateProperty.all(
+        const CircleBorder(),
+      ),
+      backgroundColor: MaterialStateProperty.all(Colors.white),
+      padding: MaterialStateProperty.all(const EdgeInsets.all(16)),
+      side: MaterialStateProperty.all(
+        const BorderSide(
+          color: Colors.black12,
+        ),
+      ),
+    ),
+  ),
+  checkboxTheme: const CheckboxThemeData(
+    side: BorderSide(
+      color: Colors.black45,
+    ),
   ),
   bottomSheetTheme: BottomSheetThemeData(
     backgroundColor: Colors.white,

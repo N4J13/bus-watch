@@ -42,3 +42,10 @@ class BusTimeSelected extends BusState {
   @override
   List<Object> get props => [time];
 }
+
+class BusRestrictSelected extends BusState {
+  final bool restrict;
+  const BusRestrictSelected(this.restrict);
+  @override
+  List<Object> get props => [restrict];
+}

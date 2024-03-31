@@ -24,7 +24,7 @@ class RoutesScreen extends StatelessWidget {
           listener: (context, state) {},
           builder: (context, state) {
             return LoadingWidget(
-              isLoading: state is BusLoading || state is BusInitial,
+              isLoading: state is BusLoading,
               child: state is BusError
                   ? AppErrorWidget(
                       error: state.message,
