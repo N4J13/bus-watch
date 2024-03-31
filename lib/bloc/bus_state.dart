@@ -36,3 +36,6 @@ class BusError extends BusState {
   List<Object> get props => [message];
 }
 
+class BusRemove extends BusState {
+  const BusRemove();
+}

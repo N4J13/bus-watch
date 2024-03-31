@@ -19,10 +19,10 @@ class BusRepository {
   }
 
   Future<List<VehiclesData>> getRoutesfromVehicle(
-      {required String vechicle}) async {
+      {required String vehicle}) async {
     List<VehiclesData> vehicleData = [];
     final response = await client.get(baseUrl, queryParameters: {
-      'vechicle': vechicle,
+      'vehicle': vehicle,
     }); // Same as https://api.com/routes?vechicle=vechicle
     for (var element in (response.data as List)) {
       vehicleData.add(VehiclesData.fromJson(element));

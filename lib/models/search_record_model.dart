@@ -3,15 +3,12 @@ part 'search_record_model.g.dart';
 
 @HiveType(typeId: 0)
 class SearchRecordModel {
-  @HiveField(0)
-  final int? id;
   @HiveField(1)
-  final String? origin;
+  final String? departure;
   @HiveField(2)
   final String? destination;
   SearchRecordModel({
-    required this.id,
-    required this.origin,
+    required this.departure,
     required this.destination,
   });
 }

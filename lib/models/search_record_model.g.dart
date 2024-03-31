@@ -17,8 +17,7 @@ class SearchRecordModelAdapter extends TypeAdapter<SearchRecordModel> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return SearchRecordModel(
-      id: fields[0] as int?,
-      origin: fields[1] as String?,
+      departure: fields[1] as String?,
       destination: fields[2] as String?,
     );
   }
@@ -26,11 +25,9 @@ class SearchRecordModelAdapter extends TypeAdapter<SearchRecordModel> {
   @override
   void write(BinaryWriter writer, SearchRecordModel obj) {
     writer
-      ..writeByte(3)
-      ..writeByte(0)
-      ..write(obj.id)
+      ..writeByte(2)
       ..writeByte(1)
-      ..write(obj.origin)
+      ..write(obj.departure)
       ..writeByte(2)
       ..write(obj.destination);
   }

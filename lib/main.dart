@@ -9,6 +9,9 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  HiveService hiveService = HiveService();
+  hiveService.init();
+
   StorageService sharedPrefs = StorageService();
   bool isOnBoard = await sharedPrefs.getBool('isOnBoard');
 

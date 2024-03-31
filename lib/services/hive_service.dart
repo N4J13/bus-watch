@@ -27,6 +27,7 @@ class HiveService {
   Future getSearchRecords() async {
     final box = await openBox();
     return box.values.toList();
+    
   }
 
   Future deleteSearchRecord(SearchRecordModel searchRecordModel) async {
