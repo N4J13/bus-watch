@@ -19,12 +19,10 @@ class BusBloc extends Cubit<BusState> {
   TimeOfDay? time;
   bool restrict = false;
   List<VehiclesData> vehiclesData = [];
-  bool isError = false;
 
   Future<void> getRoutes() async {
     emit(const BusLoading());
     try {
-      isError = false;
       final routes = await _busRepository.getRoutes(
         departure: departureController.text.slugify(),
         destination: destinationController.text.slugify(),
@@ -69,10 +67,5 @@ class BusBloc extends Cubit<BusState> {
   void toggleRestrict(bool value) {
     restrict = value;
     emit(BusRestrictSelected(restrict));
-  }
-
-  void setError(){
-    isError = true;
-    emit(const BusLoaded());
   }
 }
