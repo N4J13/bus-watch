@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class AppTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
+  final List<TextInputFormatter> inputFormatters;
   final PhosphorIcon prefixIcon;
   final Function(String?)? validator;
+
   const AppTextField({
     super.key,
     required this.controller,
     required this.hintText,
     required this.prefixIcon,
-    required this.validator,
+    this.validator,
+    this.inputFormatters = const [],
   });
 
   @override
@@ -19,6 +23,7 @@ class AppTextField extends StatelessWidget {
     return TextFormField(
       autovalidateMode: AutovalidateMode.disabled,
       controller: controller,
+      inputFormatters: inputFormatters,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: const TextStyle(

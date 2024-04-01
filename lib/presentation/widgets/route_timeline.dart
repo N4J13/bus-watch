@@ -1,15 +1,26 @@
-import 'package:bus_proj/models/get_route_model.dart';
+import 'package:bus_proj/models/station.dart';
 import 'package:bus_proj/presentation/widgets/common/timeline_widget.dart';
+import 'package:bus_proj/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class RouteTimeline extends StatelessWidget {
   final String vehicleNumber;
-  final List<StationElement> stations;
-  const RouteTimeline({super.key, required this.stations, required this.vehicleNumber});
+  final List<Station> stations;
+  final bool isVehicleSearch;
+  const RouteTimeline({
+    super.key,
+    required this.stations,
+    required this.vehicleNumber,
+    this.isVehicleSearch = false,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final String firstStation =
+        stations.first.station.capitalize().createShortName();
+    final String lastStation =
+        stations.last.station.capitalize().createShortName();
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
@@ -29,7 +40,9 @@ class RouteTimeline extends StatelessWidget {
                 width: 10,
               ),
               Text(
-                vehicleNumber,
+                isVehicleSearch
+                    ? "$firstStation - $lastStation"
+                    : vehicleNumber,
                 style: const TextStyle(
                   color: Colors.black87,
                   fontSize: 16,
@@ -39,7 +52,11 @@ class RouteTimeline extends StatelessWidget {
             ],
           ),
           for (int i = 0; i < stations.length; i++)
-            TimelineWidget( stations: stations, i: i),
+            TimelineWidget(
+              stations: stations,
+              i: i,
+              isVehicleSearch: isVehicleSearch,
+            ),
         ],
       ),
     );

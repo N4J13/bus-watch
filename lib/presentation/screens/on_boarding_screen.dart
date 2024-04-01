@@ -1,7 +1,5 @@
-import 'package:bus_proj/presentation/presentation.dart';
 import 'package:bus_proj/presentation/widgets/slide_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -21,7 +19,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             end: Alignment.topCenter,
             colors: [
               Theme.of(context).colorScheme.primary,
-              Color.fromARGB(255, 140, 114, 243),
+              const Color.fromARGB(255, 140, 114, 243),
             ],
           ),
         ),
@@ -31,7 +29,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 20),
-              Spacer(),
+              const Spacer(),
               Text(
                 "Know Your Bus Timings",
                 textAlign: TextAlign.left,

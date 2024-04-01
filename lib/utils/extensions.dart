@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 extension StringExtension on String {
   String capitalize() {
     List<String> words = split(" ");
@@ -20,5 +22,13 @@ extension StringExtension on String {
     }
 
     return this;
+  }
+}
+
+extension BuildContextExtension on BuildContext {
+  void showSnackBar({required String message}) {
+    ScaffoldMessenger.of(this).showSnackBar(SnackBar(
+      content: Text(message),
+    ));
   }
 }

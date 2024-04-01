@@ -1,1 +1,1 @@
-const baseUrl = "https://busapi.amithv.xyz/api/v1/schedules";
+const baseUrl = "https://busapi.amithv.xyz/api/v1/";
