@@ -14,6 +14,7 @@ class BusBloc extends Cubit<BusState> {
   TextEditingController destinationController = TextEditingController();
   TextEditingController vehicleController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  final vehicleFormKey = GlobalKey<FormState>();
   List<RouteData> routesData = [];
   TimeOfDay? time;
   bool restrict = false;
@@ -44,7 +45,7 @@ class BusBloc extends Cubit<BusState> {
     emit(const BusLoading());
     try {
       final vehicles = await _busRepository.getRoutesfromVehicle(
-          vechicle: vehicleController.text);
+          vehicle: vehicleController.text);
       vehiclesData = vehicles;
       emit(const BusLoaded());
     } catch (e) {

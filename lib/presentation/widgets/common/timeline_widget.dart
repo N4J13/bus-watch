@@ -1,5 +1,5 @@
 import 'package:bus_proj/bloc/bus_bloc.dart';
-import 'package:bus_proj/models/get_route_model.dart';
+import 'package:bus_proj/models/station.dart';
 import 'package:bus_proj/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,23 +9,26 @@ class TimelineWidget extends StatelessWidget {
     super.key,
     required this.stations,
     required this.i,
+    this.isVehicleSearch = false,
   });
-  final List<StationElement> stations;
+  final List<Station> stations;
   final int i;
+  final bool isVehicleSearch;
 
   @override
   Widget build(BuildContext context) {
     final BusBloc bloc = context.read<BusBloc>();
     final Size screenSize = MediaQuery.of(context).size;
     final bool isLast = i == stations.length - 1;
-    final bool departureOrDestination = stations[i]
-            .station
-            .toLowerCase()
-            .contains(bloc.departureController.text.toLowerCase()) ||
-        stations[i]
-            .station
-            .toLowerCase()
-            .contains(bloc.destinationController.text.toLowerCase());
+    final bool departureOrDestination = (stations[i]
+                .station
+                .toLowerCase()
+                .contains(bloc.departureController.text.toLowerCase()) ||
+            stations[i]
+                .station
+                .toLowerCase()
+                .contains(bloc.destinationController.text.toLowerCase())) &&
+        !isVehicleSearch;
     return Stack(
       children: [
         Padding(
@@ -50,19 +53,20 @@ class TimelineWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
+                    SizedBox(
                       width: screenSize.width * 0.45,
                       child: Text(
                         stations[i].station.capitalize(),
                         style: departureOrDestination
                             ? TextStyle(
                                 overflow: TextOverflow.ellipsis,
-                                color: Theme.of(context).colorScheme.onBackground,
+                                color:
+                                    Theme.of(context).colorScheme.onBackground,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 16,
                               )
                             : TextStyle(
-                              overflow: TextOverflow.ellipsis,
+                                overflow: TextOverflow.ellipsis,
                                 color: Colors.grey.shade500,
                                 fontWeight: FontWeight.w400,
                                 fontSize: 16,

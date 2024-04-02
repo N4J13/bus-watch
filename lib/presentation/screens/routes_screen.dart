@@ -30,7 +30,7 @@ class RoutesScreen extends StatelessWidget {
                       error: state.message,
                     )
                   : CustomScrollView(slivers: <Widget>[
-                      RouteSearchAppBar(bloc: busBloc),
+                      RouteSearchAppBar(bloc: busBloc, ),
                       SliverPadding(
                         padding:
                             const EdgeInsets.only(left: 16, right: 16, top: 16),

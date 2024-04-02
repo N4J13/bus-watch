@@ -20,7 +20,8 @@ class BusRepository {
     if (time != null && time.isNotEmpty) {
       queryParams['time'] = time;
     }
-    final response = await client.get(baseUrl, queryParameters: queryParams);
+    final response =
+        await client.get("$baseUrl/schedules", queryParameters: queryParams);
     for (var element in (response.data as List)) {
       routeData.add(RouteData.fromJson(element));
     }
@@ -28,11 +29,12 @@ class BusRepository {
   }
 
   Future<List<VehiclesData>> getRoutesfromVehicle(
-      {required String vechicle}) async {
+      {required String vehicle}) async {
     List<VehiclesData> vehicleData = [];
-    final response = await client.get(baseUrl, queryParameters: {
-      'vechicle': vechicle,
-    }); // Same as https://api.com/routes?vechicle=vechicle
+    final response = await client.get("$baseUrl/search", queryParameters: {
+      'vehicle_number': vehicle,
+    });
+
     for (var element in (response.data as List)) {
       vehicleData.add(VehiclesData.fromJson(element));
     }

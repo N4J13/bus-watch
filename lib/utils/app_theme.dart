@@ -1,7 +1,6 @@
 import 'package:bus_proj/constants/app_color.dart';
 import 'package:bus_proj/constants/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final ThemeData appTheme = ThemeData(

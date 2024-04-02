@@ -6,7 +6,12 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class RouteSearchAppBar extends StatelessWidget {
   final BusBloc bloc;
-  const RouteSearchAppBar({super.key, required this.bloc});
+  final bool isVehicleSearch;
+  const RouteSearchAppBar({
+    super.key,
+    required this.bloc,
+    this.isVehicleSearch = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,14 +19,7 @@ class RouteSearchAppBar extends StatelessWidget {
     return BlocListener<BusBloc, BusState>(
       listener: (context, state) {
         if (state is BusTimeSelected) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              duration: const Duration(seconds: 1),
-              content: Text(
-                'Showing Buses from ${state.time}',
-              ),
-            ),
-          );
+          context.showSnackBar(message: "Showing Buses from ${state.time}");
           bloc.getRoutes();
         }
       },
@@ -37,48 +35,66 @@ class RouteSearchAppBar extends StatelessWidget {
             ),
           ),
           child: Center(
-              child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: screenWidth * 0.3,
-                child: Text(
-                  bloc.departureController.text.createShortName(),
-                  textAlign: TextAlign.center,
-                  style:
-                      Theme.of(context).primaryTextTheme.titleMedium!.copyWith(
+              child: isVehicleSearch
+                  ? Text(
+                      bloc.vehicleController.text,
+                      style: Theme.of(context)
+                          .primaryTextTheme
+                          .titleMedium!
+                          .copyWith(
                             overflow: TextOverflow.ellipsis,
                             fontWeight: FontWeight.w400,
                             color: Theme.of(context).colorScheme.onPrimary,
                           ),
-                ),
-              ),
-              const SizedBox(
-                width: 30,
-              ),
-              PhosphorIcon(
-                PhosphorIconsRegular.arrowRight,
-                color: Theme.of(context).colorScheme.onPrimary,
-                size: 18,
-              ),
-              const SizedBox(
-                width: 50,
-              ),
-              SizedBox(
-                width: screenWidth * 0.3,
-                child: Text(
-                  bloc.destinationController.text.createShortName(),
-                  textAlign: TextAlign.center,
-                  style:
-                      Theme.of(context).primaryTextTheme.titleMedium!.copyWith(
-                            overflow: TextOverflow.ellipsis,
-                            fontWeight: FontWeight.w400,
-                            color: Theme.of(context).colorScheme.onPrimary,
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: screenWidth * 0.3,
+                          child: Text(
+                            bloc.departureController.text.createShortName(),
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .primaryTextTheme
+                                .titleMedium!
+                                .copyWith(
+                                  overflow: TextOverflow.ellipsis,
+                                  fontWeight: FontWeight.w400,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                ),
                           ),
-                ),
-              ),
-            ],
-          )),
+                        ),
+                        const SizedBox(
+                          width: 30,
+                        ),
+                        PhosphorIcon(
+                          PhosphorIconsRegular.arrowRight,
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          size: 18,
+                        ),
+                        const SizedBox(
+                          width: 50,
+                        ),
+                        SizedBox(
+                          width: screenWidth * 0.3,
+                          child: Text(
+                            bloc.destinationController.text.createShortName(),
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .primaryTextTheme
+                                .titleMedium!
+                                .copyWith(
+                                  overflow: TextOverflow.ellipsis,
+                                  fontWeight: FontWeight.w400,
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                ),
+                          ),
+                        ),
+                      ],
+                    )),
         ),
         leading: IconButton(
           icon: PhosphorIcon(
@@ -96,25 +112,27 @@ class RouteSearchAppBar extends StatelessWidget {
         ),
         backgroundColor: Colors.transparent,
         actions: [
-          IconButton(
-            icon: PhosphorIcon(
-              PhosphorIconsRegular.clockAfternoon,
-              size: 24,
-              color: Theme.of(context).colorScheme.onPrimary,
-            ),
-            onPressed: () async {
-              final TimeOfDay? selectedTime = await showTimePicker(
-                initialTime: TimeOfDay.now(),
-                context: context,
-              );
-              bloc.getTime(selectedTime as TimeOfDay);
-            },
-            style: Theme.of(context).iconButtonTheme.style!.copyWith(
-                  backgroundColor: const MaterialStatePropertyAll(
-                    Colors.black12,
+          !isVehicleSearch
+              ? IconButton(
+                  icon: PhosphorIcon(
+                    PhosphorIconsRegular.clockAfternoon,
+                    size: 24,
+                    color: Theme.of(context).colorScheme.onPrimary,
                   ),
-                ),
-          ),
+                  onPressed: () async {
+                    final TimeOfDay? selectedTime = await showTimePicker(
+                      initialTime: TimeOfDay.now(),
+                      context: context,
+                    );
+                    bloc.getTime(selectedTime as TimeOfDay);
+                  },
+                  style: Theme.of(context).iconButtonTheme.style!.copyWith(
+                        backgroundColor: const MaterialStatePropertyAll(
+                          Colors.black12,
+                        ),
+                      ),
+                )
+              : const SizedBox(),
           const SizedBox(width: 10),
         ],
       ),
