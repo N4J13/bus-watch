@@ -19,7 +19,7 @@ class BusBloc extends Cubit<BusState> {
   List<RouteData> routesData = [];
   List<VehiclesData> vehiclesData = [];
   final HiveService hiveService = HiveService();
-  List list = [];
+  List searchRecords = [];
 
   Future<void> getRoutes() async {
     emit(const BusLoading());
@@ -37,13 +37,19 @@ class BusBloc extends Cubit<BusState> {
         final destination = destinationController.text;
         final searchRecord =
             SearchRecordModel(departure: departure, destination: destination);
-        await hiveService.addSearchRecord(searchRecord);
-        list.add(searchRecord);
+
+        if (!searchRecords.any((record) =>
+            record.departure == departure &&
+            record.destination == destination)) {
+          await hiveService.addSearchRecord(searchRecord);
+          searchRecords.insert(0, searchRecord);
+        }
 
         emit(const BusLoaded());
       }
     } catch (e) {
       emit(BusError(e.toString()));
+      print('jjjjjj$e');
     }
   }
 
@@ -63,7 +69,8 @@ class BusBloc extends Cubit<BusState> {
     emit(const BusLoading());
     try {
       final records = await hiveService.getSearchRecords();
-      list = records;
+      searchRecords = List.from(records.reversed);
+      await searchRecords.removeAt(0);
 
       emit(const BusLoaded());
     } catch (e) {
@@ -74,7 +81,7 @@ class BusBloc extends Cubit<BusState> {
   Future clearRecentSearch() async {
     try {
       await hiveService.deleteAllSearchRecord();
-      list.clear();
+      searchRecords.clear();
 
       emit(const BusRemove());
     } catch (e) {
