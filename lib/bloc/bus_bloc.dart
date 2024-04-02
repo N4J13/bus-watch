@@ -41,15 +41,18 @@ class BusBloc extends Cubit<BusState> {
         if (!searchRecords.any((record) =>
             record.departure == departure &&
             record.destination == destination)) {
-          await hiveService.addSearchRecord(searchRecord);
+          if (searchRecords.length >= 2) {
+            searchRecords.removeAt(0);
+            emit(const BusRemove());
+          }
+          hiveService.addSearchRecord(searchRecord);
           searchRecords.insert(0, searchRecord);
         }
 
         emit(const BusLoaded());
       }
     } catch (e) {
-      emit(BusError(e.toString()));
-      print('jjjjjj$e');
+      emit(const BusError("Something went wrong! Please try again."));
     }
   }
 

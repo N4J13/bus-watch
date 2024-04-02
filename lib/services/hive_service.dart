@@ -20,10 +20,10 @@ class HiveService {
   Future addSearchRecord(SearchRecordModel searchRecordModel) async {
     final box = await openBox();
     List<SearchRecordModel> searchRecords = await getSearchRecords();
-    if (searchRecords.length.toInt() >= 2) {
-      await box.deleteAt(0);
+    if (searchRecords.length > 2) {
+      box.deleteAt(0);
     }
-    await box.add(searchRecordModel);
+    box.add(searchRecordModel);
   }
 
   Future getSearchRecords() async {
