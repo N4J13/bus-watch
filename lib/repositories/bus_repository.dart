@@ -34,7 +34,6 @@ class BusRepository {
     final response = await client.get("$baseUrl/search", queryParameters: {
       'vehicle_number': vehicle,
     });
-
     for (var element in (response.data as List)) {
       vehicleData.add(VehiclesData.fromJson(element));
     }

@@ -1,5 +1,6 @@
 import 'package:bus_proj/bloc/bus_state.dart';
 import 'package:bus_proj/repositories/bus_repository.dart';
+import 'package:bus_proj/services/hive_service.dart';
 import 'package:bus_proj/utils/extensions.dart';
 import 'package:bus_proj/utils/helper_functions.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,8 @@ class BusBloc extends Cubit<BusState> {
   TimeOfDay? time;
   bool restrict = false;
   List<VehiclesData> vehiclesData = [];
+  final HiveService hiveService = HiveService();
+  List searchRecords = [];
 
   Future<void> getRoutes() async {
     emit(const BusLoading());
@@ -34,10 +37,28 @@ class BusBloc extends Cubit<BusState> {
       if (routes.isEmpty) {
         emit(const BusError("No routes found!"));
       } else {
+        final departure = departureController.text;
+        final destination = destinationController.text;
+        final searchRecord =
+            SearchRecordModel(departure: departure, destination: destination);
+
+        if (!searchRecords.any((record) =>
+            record.departure == departure &&
+            record.destination == destination)) {
+          if (searchRecords.length >= 2) {
+            searchRecords.removeAt(0);
+            emit(const BusRemove());
+          }
+          hiveService.addSearchRecord(searchRecord);
+          searchRecords.insert(0, searchRecord);
+        }
+
         emit(const BusLoaded());
       }
     } catch (e) {
+
       emit(const BusError("Something Went Wrong!"));
+
     }
   }
 
@@ -53,6 +74,29 @@ class BusBloc extends Cubit<BusState> {
     }
   }
 
+  Future getRecentSearch() async {
+    emit(const BusLoading());
+    try {
+      final records = await hiveService.getSearchRecords();
+      searchRecords = List.from(records.reversed);
+      await searchRecords.removeAt(0);
+
+      emit(const BusLoaded());
+    } catch (e) {
+      emit(BusError(e.toString()));
+    }
+  }
+
+  Future clearRecentSearch() async {
+    try {
+      await hiveService.deleteAllSearchRecord();
+      searchRecords.clear();
+
+      emit(const BusRemove());
+    } catch (e) {
+      emit(BusError(e.toString()));
+    }
+
   void swapStations() {
     final temp = departureController.text;
     departureController.text = destinationController.text;
@@ -67,5 +111,6 @@ class BusBloc extends Cubit<BusState> {
   void toggleRestrict(bool value) {
     restrict = value;
     emit(BusRestrictSelected(restrict));
+
   }
 }
