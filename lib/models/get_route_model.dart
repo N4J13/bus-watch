@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:bus_proj/models/station.dart';
+
 List<RouteData> routeDataFromJson(String str) =>
     List<RouteData>.from(json.decode(str).map((x) => RouteData.fromJson(x)));
 
@@ -8,45 +10,27 @@ String routeDataToJson(List<RouteData> data) =>
 
 class RouteData {
   int trip;
-  List<StationElement> stations;
+  String vehicleNumber;
+  List<Station> stations;
 
   RouteData({
     required this.trip,
+    required this.vehicleNumber,
     required this.stations,
   });
 
   factory RouteData.fromJson(Map<String, dynamic> json) => RouteData(
         trip: json["trip"],
-        stations: List<StationElement>.from(
-            json["stations"].map((x) => StationElement.fromJson(x))),
+        vehicleNumber: json["vehicle_number"],
+        stations: List<Station>.from(
+            json["stations"].map((x) => Station.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "trip": trip,
+        "vehicle_number": vehicleNumber,
         "stations": List<dynamic>.from(stations.map((x) => x.toJson())),
       };
 }
 
-class StationElement {
-  String station;
-  String arrivalTime;
-  String departureTime;
 
-  StationElement({
-    required this.station,
-    required this.arrivalTime,
-    required this.departureTime,
-  });
-
-  factory StationElement.fromJson(Map<String, dynamic> json) => StationElement(
-        station: json["station"],
-        arrivalTime: json["arrivalTime"],
-        departureTime: json["departureTime"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "station": station,
-        "arrivalTime": arrivalTime,
-        "departureTime": departureTime,
-      };
-}

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:searchfield/searchfield.dart';
 
-class AppSearchField extends StatelessWidget {
+class AppSearchField extends StatefulWidget {
   final BusBloc bloc;
   final TextEditingController controller;
   final PhosphorIcon prefixIcon;
@@ -20,11 +20,32 @@ class AppSearchField extends StatelessWidget {
   });
 
   @override
+  State<AppSearchField> createState() => _AppSearchFieldState();
+}
+
+class _AppSearchFieldState extends State<AppSearchField> {
+  late FocusNode _focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     return SearchField(
-      controller: controller,
+      controller: widget.controller,
       autoCorrect: true,
+      autofocus: false,
+      focusNode: _focusNode,
       maxSuggestionsInViewPort: 3,
       marginColor: Colors.transparent,
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -33,12 +54,16 @@ class AppSearchField extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(10)),
       ),
       searchInputDecoration: InputDecoration(
-        hintText: hintText,
+        hintText: widget.hintText,
         border: InputBorder.none,
-        prefixIcon: prefixIcon,
+        prefixIcon: widget.prefixIcon,
       ),
+      onSuggestionTap: (v) {
+        _focusNode.unfocus();
+      },
       offset: const Offset(0, 50),
-      validator: (value) => validator != null ? validator!(value) : null,
+      validator: (value) =>
+          widget.validator != null ? widget.validator!(value) : null,
       itemHeight: screenHeight * 0.05,
       scrollbarDecoration: ScrollbarDecoration(
         radius: const Radius.circular(10),

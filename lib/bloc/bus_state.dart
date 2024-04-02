@@ -36,7 +36,20 @@ class BusError extends BusState {
   List<Object> get props => [message];
 }
 
-
 class BusRemove extends BusState {
   const BusRemove();
+}
+
+class BusTimeSelected extends BusState {
+  final String time;
+  const BusTimeSelected(this.time);
+  @override
+  List<Object> get props => [time];
+}
+
+class BusRestrictSelected extends BusState {
+  final bool restrict;
+  const BusRestrictSelected(this.restrict);
+  @override
+  List<Object> get props => [restrict];
 }

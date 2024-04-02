@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppErrorWidget extends StatelessWidget {
-  const AppErrorWidget({super.key});
+  final String error;
+  const AppErrorWidget({super.key, required this.error});
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +19,14 @@ class AppErrorWidget extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              'An error occurred',
+              error,
               style: Theme.of(context).primaryTextTheme.titleLarge,
             ),
             const SizedBox(height: 10),
             SizedBox(
               width: screenWidth * 0.8,
               child: Text(
-                'Please try again later, or try with a different search term.',
+                "Can't find the route you are looking for. Please try again with different search criteria.",
                 textAlign: TextAlign.center,
                 style: Theme.of(context).primaryTextTheme.titleSmall,
               ),

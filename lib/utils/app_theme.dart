@@ -9,6 +9,7 @@ final ThemeData appTheme = ThemeData(
   colorScheme: ColorScheme.fromSwatch().copyWith(
     primary: AppColors.primary,
     onPrimary: Colors.white,
+    tertiary: AppColors.tertiary,
     background: Colors.white,
     surface: const Color.fromARGB(255, 246, 247, 251),
     onBackground: Colors.black,
@@ -112,6 +113,7 @@ final ThemeData appTheme = ThemeData(
   ),
   cardTheme: CardTheme(
     surfaceTintColor: Colors.white,
+    color: Colors.white,
     elevation: 0,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(20),
@@ -120,6 +122,25 @@ final ThemeData appTheme = ThemeData(
   appBarTheme: const AppBarTheme(
     elevation: 0,
     color: Colors.white,
+  ),
+  outlinedButtonTheme: OutlinedButtonThemeData(
+    style: ButtonStyle(
+      shape: MaterialStateProperty.all(
+        const CircleBorder(),
+      ),
+      backgroundColor: MaterialStateProperty.all(Colors.white),
+      padding: MaterialStateProperty.all(const EdgeInsets.all(16)),
+      side: MaterialStateProperty.all(
+        const BorderSide(
+          color: Colors.black12,
+        ),
+      ),
+    ),
+  ),
+  checkboxTheme: const CheckboxThemeData(
+    side: BorderSide(
+      color: Colors.black45,
+    ),
   ),
   bottomSheetTheme: BottomSheetThemeData(
     backgroundColor: Colors.white,

@@ -1,5 +1,4 @@
 import 'package:bus_proj/bloc/bus_bloc.dart';
-import 'package:bus_proj/presentation/widgets/info_widget.dart';
 import 'package:bus_proj/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -51,7 +50,9 @@ class HomeScreen extends StatelessWidget {
                         bloc: busBloc,
                       ),
                       const SizedBox(height: 20),
-                      const BusSearchWidget(),
+                      BusSearchWidget(
+                        bloc: busBloc,
+                      ),
                       const SizedBox(height: 20),
                       const RecentSearchWidget(),
                     ],
