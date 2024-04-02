@@ -96,6 +96,8 @@ class BusBloc extends Cubit<BusState> {
     } catch (e) {
       emit(BusError(e.toString()));
     }
+  
+  }
 
   void swapStations() {
     final temp = departureController.text;

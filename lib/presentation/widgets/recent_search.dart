@@ -18,67 +18,69 @@ class RecentSearchWidget extends StatelessWidget {
     return BlocConsumer<BusBloc, BusState>(
       listener: (context, state) {},
       builder: (context, state) {
-        return Container(
-          width: screenWidth,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Search History',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        busBloc.clearRecentSearch();
-                      },
-                      child: const Text(
-                        'Clear All',
-                        style: TextStyle(
-                          color: Colors.red,
-                        ),
-                      ),
-                    ),
-                  ],
+        return busBloc.searchRecords.isNotEmpty
+            ? Container(
+                width: screenWidth,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                ListView.separated(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    final searchRecord = busBloc.searchRecords[index];
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(context,
-                            AppCustomRoute(screen: const RoutesScreen()));
-                      },
-                      child: ListTile(
-                        title: Text(
-                            ' ${searchRecord.departure} - ${searchRecord.destination}'),
-                        trailing: Icon(PhosphorIcons.caretRight(),
-                            color: AppColors.primary),
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Search History',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              busBloc.clearRecentSearch();
+                            },
+                            child: const Text(
+                              'Clear All',
+                              style: TextStyle(
+                                color: Colors.red,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return const Divider();
-                  },
-                  itemCount: busBloc.searchRecords.length,
+                      ListView.separated(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          final searchRecord = busBloc.searchRecords[index];
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(context,
+                                  AppCustomRoute(screen: const RoutesScreen()));
+                            },
+                            child: ListTile(
+                              title: Text(
+                                  ' ${searchRecord.departure} - ${searchRecord.destination}'),
+                              trailing: Icon(PhosphorIcons.caretRight(),
+                                  color: AppColors.primary),
+                            ),
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return const Divider();
+                        },
+                        itemCount: busBloc.searchRecords.length,
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
-          ),
-        );
+              )
+            : const SizedBox();
       },
     );
   }
