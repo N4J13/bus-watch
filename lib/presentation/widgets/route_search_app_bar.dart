@@ -25,76 +25,79 @@ class RouteSearchAppBar extends StatelessWidget {
       },
       child: SliverAppBar(
         expandedHeight: 170,
-        flexibleSpace: Container(
-          padding: const EdgeInsets.only(top: 25),
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary,
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(30),
-              bottomRight: Radius.circular(30),
+        collapsedHeight: 70,
+        flexibleSpace: FlexibleSpaceBar(
+          background: Container(
+            padding: const EdgeInsets.only(top: 25),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary,
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30),
+              ),
             ),
-          ),
-          child: Center(
-              child: isVehicleSearch
-                  ? Text(
-                      bloc.vehicleController.text,
-                      style: Theme.of(context)
-                          .primaryTextTheme
-                          .titleMedium!
-                          .copyWith(
-                            overflow: TextOverflow.ellipsis,
-                            fontWeight: FontWeight.w400,
+            child: Center(
+                child: isVehicleSearch
+                    ? Text(
+                        bloc.vehicleController.text,
+                        style: Theme.of(context)
+                            .primaryTextTheme
+                            .titleMedium!
+                            .copyWith(
+                              overflow: TextOverflow.ellipsis,
+                              fontWeight: FontWeight.w400,
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            ),
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: screenWidth * 0.3,
+                            child: Text(
+                              bloc.departure.createShortName(),
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .titleMedium!
+                                  .copyWith(
+                                    overflow: TextOverflow.ellipsis,
+                                    fontWeight: FontWeight.w400,
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                  ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 30,
+                          ),
+                          PhosphorIcon(
+                            PhosphorIconsRegular.arrowRight,
                             color: Theme.of(context).colorScheme.onPrimary,
+                            size: 18,
                           ),
-                    )
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: screenWidth * 0.3,
-                          child: Text(
-                            bloc.departure.createShortName(),
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .primaryTextTheme
-                                .titleMedium!
-                                .copyWith(
-                                  overflow: TextOverflow.ellipsis,
-                                  fontWeight: FontWeight.w400,
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
-                                ),
+                          const SizedBox(
+                            width: 50,
                           ),
-                        ),
-                        const SizedBox(
-                          width: 30,
-                        ),
-                        PhosphorIcon(
-                          PhosphorIconsRegular.arrowRight,
-                          color: Theme.of(context).colorScheme.onPrimary,
-                          size: 18,
-                        ),
-                        const SizedBox(
-                          width: 50,
-                        ),
-                        SizedBox(
-                          width: screenWidth * 0.3,
-                          child: Text(
-                            bloc.destination.createShortName(),
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .primaryTextTheme
-                                .titleMedium!
-                                .copyWith(
-                                  overflow: TextOverflow.ellipsis,
-                                  fontWeight: FontWeight.w400,
-                                  color:
-                                      Theme.of(context).colorScheme.onPrimary,
-                                ),
+                          SizedBox(
+                            width: screenWidth * 0.3,
+                            child: Text(
+                              bloc.destination.createShortName(),
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .primaryTextTheme
+                                  .titleMedium!
+                                  .copyWith(
+                                    overflow: TextOverflow.ellipsis,
+                                    fontWeight: FontWeight.w400,
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                  ),
+                            ),
                           ),
-                        ),
-                      ],
-                    )),
+                        ],
+                      )),
+          ),
         ),
         leading: IconButton(
           icon: PhosphorIcon(
@@ -110,7 +113,13 @@ class RouteSearchAppBar extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(30),
+            bottomRight: Radius.circular(30),
+          ),
+        ),
         actions: [
           !isVehicleSearch
               ? IconButton(

@@ -73,7 +73,7 @@ class BusSearchWidget extends StatelessWidget {
       return;
     }
 
-    if (!RegExp(r'^[A-Z]{2}\d{2}[A-Z]?\d{1,4}$')
+    if (!RegExp(r'^[A-Za-z]{0,2}\d{0,2}[A-Za-z]{0,3}\d{0,4}$')
         .hasMatch(bloc.vehicleController.text)) {
       context.showSnackBar(message: "Invalid Vehicle Number");
       return;
