@@ -53,7 +53,7 @@ class RouteSearchAppBar extends StatelessWidget {
                         SizedBox(
                           width: screenWidth * 0.3,
                           child: Text(
-                            bloc.departureController.text.createShortName(),
+                            bloc.departure.createShortName(),
                             textAlign: TextAlign.center,
                             style: Theme.of(context)
                                 .primaryTextTheme
@@ -80,7 +80,7 @@ class RouteSearchAppBar extends StatelessWidget {
                         SizedBox(
                           width: screenWidth * 0.3,
                           child: Text(
-                            bloc.destinationController.text.createShortName(),
+                            bloc.destination.createShortName(),
                             textAlign: TextAlign.center,
                             style: Theme.of(context)
                                 .primaryTextTheme

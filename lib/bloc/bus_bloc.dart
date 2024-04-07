@@ -22,13 +22,20 @@ class BusBloc extends Cubit<BusState> {
   List<VehiclesData> vehiclesData = [];
   final HiveService hiveService = HiveService();
   List searchRecords = [];
+  String departure = "";
+  String destination = "";
 
-  Future<void> getRoutes() async {
+  Future<void> getRoutes(
+      {String? searchDeparture, String? searchDestination}) async {
     emit(const BusLoading());
     try {
       final routes = await _busRepository.getRoutes(
-        departure: departureController.text.slugify(),
-        destination: destinationController.text.slugify(),
+        departure: searchDeparture != null
+            ? searchDeparture.slugify()
+            : departureController.text.slugify(),
+        destination: searchDestination != null
+            ? searchDestination.slugify()
+            : destinationController.text.slugify(),
         restrict: !restrict,
         time: formatTimeOfDay(time),
       );
@@ -37,15 +44,22 @@ class BusBloc extends Cubit<BusState> {
       if (routes.isEmpty) {
         emit(const BusError("No routes found!"));
       } else {
-        final departure = departureController.text;
-        final destination = destinationController.text;
+        if (searchDeparture != null && searchDestination != null) {
+          departure = searchDeparture;
+          destination = searchDestination;
+          emit(const BusLoaded());
+          return;
+        }
+
+        departure = departureController.text;
+        destination = destinationController.text;
         final searchRecord =
             SearchRecordModel(departure: departure, destination: destination);
 
         if (!searchRecords.any((record) =>
             record.departure == departure &&
             record.destination == destination)) {
-          if (searchRecords.length >= 2) {
+          if (searchRecords.length >= 5) {
             searchRecords.removeAt(0);
             emit(const BusRemove());
           }
@@ -56,9 +70,7 @@ class BusBloc extends Cubit<BusState> {
         emit(const BusLoaded());
       }
     } catch (e) {
-
       emit(const BusError("Something Went Wrong!"));
-
     }
   }
 
@@ -79,7 +91,6 @@ class BusBloc extends Cubit<BusState> {
     try {
       final records = await hiveService.getSearchRecords();
       searchRecords = List.from(records.reversed);
-      await searchRecords.removeAt(0);
 
       emit(const BusLoaded());
     } catch (e) {
@@ -96,7 +107,6 @@ class BusBloc extends Cubit<BusState> {
     } catch (e) {
       emit(BusError(e.toString()));
     }
-  
   }
 
   void swapStations() {
@@ -113,6 +123,5 @@ class BusBloc extends Cubit<BusState> {
   void toggleRestrict(bool value) {
     restrict = value;
     emit(BusRestrictSelected(restrict));
-
   }
 }

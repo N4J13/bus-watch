@@ -8,10 +8,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RoutesScreen extends StatelessWidget {
-  const RoutesScreen({super.key});
+  const RoutesScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
     final BusBloc busBloc = context.read<BusBloc>();
     return SafeArea(
       child: AnnotatedRegion(
@@ -30,10 +34,15 @@ class RoutesScreen extends StatelessWidget {
                       error: state.message,
                     )
                   : CustomScrollView(slivers: <Widget>[
-                      RouteSearchAppBar(bloc: busBloc, ),
+                      RouteSearchAppBar(
+                        bloc: busBloc,
+                      ),
                       SliverPadding(
-                        padding:
-                            const EdgeInsets.only(left: 16, right: 16, top: 16),
+                        padding: EdgeInsets.only(
+                          left: screenWidth * 0.04,
+                          right: screenWidth * 0,
+                          top: screenHeight * 0.02,
+                        ),
                         sliver: SliverList.separated(
                             separatorBuilder: (context, index) =>
                                 const SizedBox(height: 16.0),

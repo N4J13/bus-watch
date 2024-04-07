@@ -1,8 +1,6 @@
-import 'package:bus_proj/bloc/bus_bloc.dart';
-import 'package:bus_proj/bloc/bus_state.dart';
+import 'package:bus_proj/bloc/bloc.dart';
 import 'package:bus_proj/constants/app_color.dart';
 import 'package:bus_proj/presentation/presentation.dart';
-import 'package:bus_proj/presentation/widgets/common/app_custom_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -60,6 +58,9 @@ class RecentSearchWidget extends StatelessWidget {
                           final searchRecord = busBloc.searchRecords[index];
                           return GestureDetector(
                             onTap: () {
+                              busBloc.getRoutes(
+                                  searchDeparture: searchRecord.departure,
+                                  searchDestination: searchRecord.destination);
                               Navigator.push(context,
                                   AppCustomRoute(screen: const RoutesScreen()));
                             },
