@@ -2,6 +2,7 @@ import 'package:bus_proj/bloc/bloc.dart';
 import 'package:bus_proj/constants/constants.dart';
 import 'package:bus_proj/presentation/screens/routes_screen.dart';
 import 'package:bus_proj/presentation/widgets/common/app_search_field.dart';
+import 'package:bus_proj/utils/helper_functions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'common/common.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,10 @@ class RouteSearchWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
-
+    List<String> stations = [];
+    loadStations().then((value) {
+      stations = value;
+    });
     return BlocBuilder<BusBloc, BusState>(
       builder: (context, state) {
         return Form(

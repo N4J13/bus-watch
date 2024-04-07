@@ -1,5 +1,6 @@
 import 'package:bus_proj/bloc/bus_bloc.dart';
 import 'package:bus_proj/constants/constants.dart';
+import 'package:bus_proj/utils/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:searchfield/searchfield.dart';
@@ -25,11 +26,17 @@ class AppSearchField extends StatefulWidget {
 
 class _AppSearchFieldState extends State<AppSearchField> {
   late FocusNode _focusNode;
+  List<String> _stations = [];
 
   @override
   void initState() {
     super.initState();
     _focusNode = FocusNode();
+    loadStations().then((stations) {
+      setState(() {
+        _stations = stations;
+      });
+    });
   }
 
   @override
@@ -70,7 +77,7 @@ class _AppSearchFieldState extends State<AppSearchField> {
         thickness: 3,
         thumbColor: Theme.of(context).colorScheme.outline,
       ),
-      suggestions: stations
+      suggestions: _stations
           .map((e) => SearchFieldListItem(e,
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4.0),

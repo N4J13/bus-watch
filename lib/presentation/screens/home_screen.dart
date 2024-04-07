@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
             slivers: <Widget>[
               SliverAppBar(
                 backgroundColor: Colors.transparent,
-                title: const Text('My SliverAppBar'),
+                title: const Text('Bus Watch'),
                 floating: true,
                 expandedHeight: 50,
                 actions: [
