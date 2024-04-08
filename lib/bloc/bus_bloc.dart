@@ -82,7 +82,7 @@ class BusBloc extends Cubit<BusState> {
       vehiclesData = vehicles;
       emit(const BusLoaded());
     } catch (e) {
-      emit(BusError(e.toString()));
+      emit(const BusError("No vehicle found!"));
     }
   }
 
