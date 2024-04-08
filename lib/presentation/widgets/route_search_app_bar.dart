@@ -130,7 +130,7 @@ class RouteSearchAppBar extends StatelessWidget {
                   ),
                   onPressed: () async {
                     final TimeOfDay? selectedTime = await showTimePicker(
-                      initialTime: TimeOfDay.now(),
+                      initialTime: const TimeOfDay(hour: 4, minute: 0),
                       context: context,
                     );
                     bloc.getTime(selectedTime as TimeOfDay);

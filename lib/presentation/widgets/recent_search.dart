@@ -38,16 +38,22 @@ class RecentSearchWidget extends StatelessWidget {
                               fontSize: 16,
                             ),
                           ),
-                          TextButton(
-                            onPressed: () {
-                              busBloc.clearRecentSearch();
-                            },
-                            child: const Text(
-                              'Clear All',
-                              style: TextStyle(
-                                color: Colors.red,
+                          Row(
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  busBloc.clearRecentSearch();
+                                },
+                                child: const Text(
+                                  'Clear All',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
-                            ),
+                              const PhosphorIcon(PhosphorIconsBold.x, size: 19),
+                            ],
                           ),
                         ],
                       ),
@@ -65,6 +71,7 @@ class RecentSearchWidget extends StatelessWidget {
                                   AppCustomRoute(screen: const RoutesScreen()));
                             },
                             child: ListTile(
+                              contentPadding: EdgeInsets.zero,
                               title: Text(
                                   ' ${searchRecord.departure} - ${searchRecord.destination}'),
                               trailing: Icon(PhosphorIcons.caretRight(),
