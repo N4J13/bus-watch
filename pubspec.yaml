@@ -1,5 +1,5 @@
 name: bus_proj
-description: A new Flutter project.
+description: Bus Watch is designed to track the bus timings of private buses in Kerala, India. It utilizes an API developed by Amith and their team, along with a dataset also created by Amith.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
@@ -48,12 +48,25 @@ dependencies:
   slide_to_act: ^2.0.2
 
 dev_dependencies:
+  flutter_launcher_icons: "^0.13.1"
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/and12splash.png"
+  adaptive_icon_background : "#8C72F4"
+  adaptive_icon_foreground: "assets/images/and12splash.png"
+  remove_alpha_ios: true
+
 flutter_native_splash:
-  background_image: assets/images/splash_screen.jpg
+  background_image: assets/images/splash.png
+  android_12:
+    image: assets/images/and12splash.png
+    color: "#ffffff"
+    icon_background_color: "#8C72F4"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
