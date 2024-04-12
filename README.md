@@ -9,7 +9,7 @@ To get started with N Square Media Bot 🤖, follow these steps:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/Bus-Watch.git
+git clone https://github.com/Nishmakv/bus-watch.git
 
 ```
 ### 2. Navigate to the project directory:
